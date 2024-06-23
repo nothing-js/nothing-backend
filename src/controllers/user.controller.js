@@ -12,7 +12,7 @@ const registerUser = asyncHandler( async (req,res) => {
         throw new ApiError(400, "all feild are required")
     }
 
-    const existedUser =  User.findOne({
+    const existedUser = await User.findOne({
         $or:[{username},{email}]
     })
 
@@ -57,4 +57,15 @@ const registerUser = asyncHandler( async (req,res) => {
     )
 })
 
-export {registerUser}
+const loginUser = asyncHandler( async (req, res)=>{
+    const {email,username,password} = req.body
+
+    if(!email || !username){
+        throw new ApiError(400,"username and email is required")
+    }
+})
+
+export {
+    registerUser,
+    loginUser
+}
